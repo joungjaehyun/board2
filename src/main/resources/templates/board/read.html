@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/lteLayout.html}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Board Read</title>
+</head>
+
+<body>
+  <div layout:fragment="content">
+
+    <div class="card-body px-0 pt-0 pb-2">
+      <div class="table-responsive p-0">
+        <table class="table align-items-center mb-0">
+          <thead>
+            <tr>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">글번호</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">제목</th>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">내용
+              </th>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                작성자</th>
+              <th class="text-secondary opacity-7">작성일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--각 내용들 테이블화-->
+            <h1>[[${dto}]]</h1>
+
+            <tr>
+              <td class="boardNum">[[${dto.bno}]]</td>
+              <td class="boardTitle">[[${dto.title}]]</td>
+              <td class="boardContent">[[${dto.content}]]</td>
+              <td class="boardWriter">[[${dto.writer}]]</td>
+              <td class="boarddate">[[${dto.regdate}]]</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <a th:href="@{/board/modify/{bno}(bno=${dto.bno})}"> 수정하기</a>
+    <a th:href="@{/board/delete/{bno}(bno=${dto.bno})}"> 삭제하기</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/axios.js"></script>
+
+  </div>
+
+
+
+</body>
+
+</html>

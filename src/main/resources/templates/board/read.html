@@ -11,45 +11,105 @@
 <body>
   <div layout:fragment="content">
 
-    <div class="card-body px-0 pt-0 pb-2">
-      <div class="table-responsive p-0">
-        <table class="table align-items-center mb-0">
-          <thead>
-            <tr>
-              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">글번호</th>
-              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">제목</th>
-              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">내용
-              </th>
-              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                작성자</th>
-              <th class="text-secondary opacity-7">작성일</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!--각 내용들 테이블화-->
-            <h1>[[${dto}]]</h1>
+    <form class="form-horizontal" action="/board/delete/" method="post">
+      <div class="card-body px-0 pt-0 pb-2">
+        <div class="table-responsive p-0">
 
-            <tr>
-              <td class="boardNum">[[${dto.bno}]]</td>
-              <td class="boardTitle">[[${dto.title}]]</td>
-              <td class="boardContent">[[${dto.content}]]</td>
-              <td class="boardWriter">[[${dto.writer}]]</td>
-              <td class="boarddate">[[${dto.regdate}]]</td>
-            </tr>
-          </tbody>
-        </table>
+
+          <div class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">글번호 <br>
+            <input type="text" class="boardNum" th:value="${dto.bno}" readonly />
+          </div>
+
+
+          <div class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">제목 <br>
+            <input type="text" class="boardTitle" th:value="${dto.title}" readonly />
+          </div>
+
+
+          <div class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">내용 <br>
+            <input type="text" class="boardContent" th:value="${dto.content}" readonly />
+          </div>
+          <div class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">작성자 <br>
+            <input type="text" class="boardWriter" th:value="${dto.writer}" readonly />
+          </div>
+          <div class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">작성일 <br>
+            <input type="text" class="boarddate" th:value="${dto.regdate}" readonly />
+          </div>
+
+        </div>
       </div>
-    </div>
+      <div>
+        <button type="button" class="btn btn-primary modifyButton">
+          수정
+        </button>
 
-    <a th:href="@{/board/modify/{bno}(bno=${dto.bno})}"> 수정하기</a>
-    <a th:href="@{/board/delete/{bno}(bno=${dto.bno})}"> 삭제하기</a>
+        <button type="button" class="btn btn-danger deleteButton">
+          삭제
+        </button>
+
+        <button type="button" class="btn btn-warning listButton">
+          목록
+        </button>
+      </div>
+
+    </form>
+
+    <div class="modal workMoadl" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <input type="text" name="gno" readonly>
+                  <input type="text" name="reply" value="AAAA">
+                  <input type="text" name="replyer" value="user00">
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-info btnAdd">ADD</button>
+                  <button type="button" class="btn btn-danger btnDelete">DELETE</button>
+                  <button type="button" class="btn btn-primary btnModify">MODIFY</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/js/axios.js"></script>
 
   </div>
+  <script layout:fragment="script" th:inline="javascript">
+    const button = document.querySelector(".deleteButton");
+    const button2 = document.querySelector(".modifyButton")
+    const button3 = document.querySelector(".listButton")
+    const actionForm = document.querySelector(".form-horizontal");
+ 
+    const { bno } = [[${ dto }]]
+    // const {page} = [[${PageRequestDTO}]]
 
+    button.addEventListener("click", (e) => {
+      actionForm.setAttribute("action", `/board/delete/${bno}`)
+      actionForm.submit();
+    })
 
+    button2.addEventListener("click", (e) => {
+      actionForm.setAttribute("action", `/board/modify/${bno}`)
+      actionForm.setAttribute("method", `get`)
+      actionForm.submit();
+    })
+
+    button3.addEventListener("click", (e) => {
+      console.log(bno)
+      actionForm.setAttribute("action", `/board/list`)
+      actionForm.setAttribute("method", `get`)
+      actionForm.submit();
+    })
+    </script>
 
 </body>
 

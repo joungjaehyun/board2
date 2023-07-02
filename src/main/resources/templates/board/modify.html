@@ -10,7 +10,8 @@
 <body>
     <div layout:fragment="content">
 
-        <form th:action = "${'/board/update/'+dto.bno }" method = "post">
+        <form class="form-horizontal" action="/board/modify/" method="post">
+
             <input type="text" name="bno" readonly th:value="${dto.bno}">
             <h4>제목</h4>
             
@@ -19,11 +20,26 @@
             <br>
             <h4>내용을 입력하세요</h4>
             <textarea rows="20" cols="50" name="content"> [[${dto.content}]]</textarea> <br>
-            <input type="submit" value="등록">
+            <div>
+                <button type="button" class="btn btn-primary modifyButton">수정</button>
+              </div>
             </form>
 
 
+
+
     </div>
+
+    <script layout:fragment="script" th:inline="javascript">
+        const button2 = document.querySelector(".modifyButton")
+        const actionForm = document.querySelector(".form-horizontal");
+
+        button2.addEventListener("click", (e) => {
+            actionForm.setAttribute("action", `/board/modify`)
+            actionForm.setAttribute("method", `post`)
+            actionForm.submit();
+        })
+    </script>
 </body>
 
 </html>

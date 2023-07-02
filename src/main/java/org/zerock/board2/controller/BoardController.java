@@ -73,13 +73,13 @@ public class BoardController {
         log.info("post modify....");
         service.modifyOne(boardDTO);
 
-        return "redirect:/board/read" + boardDTO.getBno();
+        return "redirect:/board/read/" + boardDTO.getBno();
     }
 
     @PostMapping("/delete/{bno}")
     public String postDelete(@PathVariable("bno")Integer bno){
 
-        log.info("post delete...");
+        log.info("post delete..."); 
         service.deleteOne(bno);
 
         return "redirect:/board/list";

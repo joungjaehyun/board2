@@ -34,7 +34,7 @@
           <tbody>
             <tr th:each="board :${dto.list}">
               <td>[[${board.bno}]]</td>
-              <td class="boardTD" th:data-tno="${board.bno}">[[${board.title}]]</td>
+              <td class="boardTD" th:data-bno="${board.bno}">[[${board.title}]]</td>
               <td>[[${board.writer}]]</td>
               <td>[[${board.regdate}]]</td>
        
@@ -108,9 +108,9 @@
         if(!target.getAttribute("data-bno")){
           return
         }
-        const tno = target.getAttribute("data-bno")
+        const bno = target.getAttribute("data-bno")
 
-        console.log(tno)
+        console.log(bno)
 
         actionForm.setAttribute("action", `/board/read/${bno}`)
         actionForm.submit()
